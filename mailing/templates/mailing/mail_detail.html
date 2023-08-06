@@ -1,0 +1,45 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        Тема рассылки "{{ object.subject|title }}"
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td>Содержание письма:</td>
+                            <td>{{ object.body }}</td>
+                        </tr>
+                        <tr>
+                            <td>Периодичность рассылки:</td>
+                            <td>{{ object.periodicity }}</td>
+                        </tr>
+                        <tr>
+                            <td>Статус рассылки:</td>
+                            <td>{{ object.status }}</td>
+                        </tr>
+                        <tr>
+                            <td>Клиенты:</td>
+                            {% if object.client.all %}
+                            {% for client in object.client.all %}
+                            <td>{{ client.email }}{% if not forloop.last %}, {% endif %}</td>
+                            {% endfor %}
+                            {% else %}
+                            <td>Нет клиентов</td>
+                            {% endif %}
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'mailing:mail_list' %}" class="btn btn-outline-primary mt-3">Назад к рассылкам</a>
+</div>
+{% endblock %}
+

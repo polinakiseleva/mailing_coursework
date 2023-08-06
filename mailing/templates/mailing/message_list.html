@@ -1,0 +1,40 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+<div class="col-12">
+    <a href="{% url 'mailing:message_create' %}" class="btn btn-secondary m-2">Добавить сообщение</a>
+</div>
+<div class="row">
+    {% for object in object_list %}
+    <div class="col-md-7">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <p class="card-text">Название сообщения: "{{ object.theme|title }}"</p>
+                <p class="card-text"> {{ object.mail.subject }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+            </div>
+            <div class="card-footer">
+                    <div class="btn-group">
+                        {% if perms.mailing.message_view %}
+                        <a href="{% url 'mailing:message_view' object.pk %}"
+                           class="btn btn-sm btn-outline-secondary">Просмотреть</a>
+                        {% endif %}
+                        {% if perms.mailing.message_update %}
+                        <a href="{% url 'mailing:message_update' object.pk %}" type="button"
+                           class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                        {% endif %}
+                        {% if perms.mailing.message_delete %}
+                        <a href="{% url 'mailing:message_delete' object.pk %}" type="button"
+                           class="btn btn-sm btn-outline-danger">Удалить</a>
+                        {% endif %}
+                    </div>
+                </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="col-12">
+    <a href="{% url 'mailing:home' %}" class="btn btn-secondary m-2"><< Назад</a>
+</div>
+{% endblock %}

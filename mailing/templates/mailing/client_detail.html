@@ -1,0 +1,33 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+
+  <div class="col-12">
+    <div class="row">
+      <div class="col-8">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Клиент "{{object.email}}"</h5>
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <tr>
+                <td>ФИО:</td>
+                <td>{{object.full_name}}</td>
+              </tr>
+              <tr>
+                <td>Почта:</td>
+                <td>{{object.email}}</td>
+              </tr>
+              <tr>
+                <td>Комментарии:</td>
+                <td>{{object.comment}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+        <a href="{% url 'mailing:client_list' %}" class="btn btn-outline-primary mt-3">Назад к клиентам</a>
+</div>
+{% endblock %}

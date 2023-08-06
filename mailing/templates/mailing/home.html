@@ -1,0 +1,49 @@
+{% extends 'mailing/base.html' %}
+
+{% load my_tags %}
+{% block content %}
+<div class="col-4">
+    <div class="card">
+        <div class="card-body ">
+            <!--           <p> Всего рассылок: {{all_mail}} </p>-->
+            <p>Всего рассылок: ОБЩЕЕ КОЛИЧЕСТВО РАССЫЛОК (***)</p>
+        </div>
+    </div>
+</div>
+<div class="col-4">
+    <div class="card">
+        <div class="card-body ">
+            <!--            <p> Активных рассылок: {{active_mail}}</p>-->
+            <p> Активных рассылок: КОЛИЧЕСТВО АКТИВНЫХ РАССЫЛОК (***)</p>
+        </div>
+    </div>
+</div>
+<div class="col-4">
+    <div class="card">
+        <div class="card-body ">
+            <!--            <p> Всего клиентов: {{all_clients}}</p>-->
+            <p> Всего клиентов: ОБЩЕЕ КОЛИЧЕСТВО КЛИЕНТОВ (***)</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    {% for object in article_object_list%}
+    <div class="col-4">
+        <div class="card mt-4 box-shadow">
+            <div class="card-header">
+                <img src="{{object.image|my_path}}" class="card-img-top" alt="{{object.image|my_path}}">
+                <h3 class="card-title">{{ object.title }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="card-text">{{ object.content|truncatechars:100 }}</div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'blog:view_article' object.pk %}" class="btn btn-outline-primary">Просмотреть</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
