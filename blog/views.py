@@ -4,6 +4,7 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView, D
 from pytils.translit import slugify
 
 from blog.models import Blog
+from mailing.forms import StyleFormMixin
 
 
 class BlogCreateView(CreateView):
@@ -21,7 +22,7 @@ class BlogCreateView(CreateView):
 
 class BlogListView(ListView):
     model = Blog
-    extra_context = {'title': 'All articles', }
+    extra_context = {'title': 'Все статьи', }
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)

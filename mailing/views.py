@@ -39,8 +39,8 @@ class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'mailing.client_update'
     success_url = reverse_lazy('mailing:client_list')
 
-    def get_context_data(self, *args, **kwargs):
-        context_data = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
         context_data['title'] = 'Редактирование клиента'
 
         return context_data
@@ -53,8 +53,8 @@ class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     # extra_context = {'title': 'Список клиентов', }
 
-    def get_context_data(self, *args, **kwargs):
-        context_data = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
         context_data['title'] = 'Список клиентов'
 
         return context_data
@@ -65,8 +65,8 @@ class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     permission_required = 'mailing.client_view'
     success_url = reverse_lazy('mailing:client_list')
 
-    def get_context_data(self, *args, **kwargs):
-        context_data = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
         context_data['title'] = 'Просмотр клиента'
 
         return context_data
@@ -80,8 +80,8 @@ class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
     # extra_context = {'title': 'Удаление клиента', }
 
-    def get_context_data(self, *args, **kwargs):
-        context_data = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
         context_data['title'] = 'Удаление клиента'
 
         return context_data
@@ -97,14 +97,6 @@ class MailCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         form.instance.status = 'running'
         response = super().form_valid(form)
         mail_send(self.object)
-        return response
-
-    def post(self, request, *args, **kwargs):
-        response = super().post(request, *args, **kwargs)
-        message_item = self.object
-        message_item.status = 'running'
-        message_item.save()
-        mail_send(message_item)
         return response
 
 
@@ -205,13 +197,16 @@ class MessageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
 
 
 def index(request):
-    """
-    Функция отображения главной страницы
-    """
+    all_mail = Mail.objects.all().count()
+    active_mail = Mail.objects.filter(status='running').count()
+    all_client = Client.objects.all().count()
+    articles_model = Blog.objects.all().order_by('?')[:3]
+
     context = {
-        'all_mail': Mail.objects.all().count(),
-        'all_clients': Client.objects.all().count(),
-        'article_object_list': Blog.objects.all().order_by('?')[:3],
+        'all_mail': all_mail,
+        'all_client': all_client,
+        'active_mail': active_mail,
+        'article_object_list': articles_model,
         'title': 'Главная'
     }
     return render(request, 'mailing/home.html', context)
@@ -219,6 +214,6 @@ def index(request):
 
 def contact_inf(request):
     context = {
-        'title': 'Contacts',
+        'title': 'Контакты',
     }
     return render(request, 'mailing/contact_inf.html', context)
