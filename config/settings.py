@@ -133,10 +133,9 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/users/'
 
-
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'polinakiseleva4@gmail.com'
+EMAIL_HOST_PASSWORD = 'msuceohxwnmpnqha'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
@@ -149,7 +148,6 @@ CRONJOBS = [
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_TIMEZONE = 'Europe/Moscow'
-
 
 CACHE_ENABLE = os.getenv(
     'CACHE_ENABLE') == 'True'  # если True значит работаем на продакшн, если False значит локально и кешировать
