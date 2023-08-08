@@ -5,6 +5,7 @@
 <div class="row">
     <div class="col-sm-6">
         <table class="table">
+            <h4 class="ml-3">Статистика</h4>
             <tr>
                 <td><p><a href="{% url 'mailing:mail_list' %}"
                           class="link-dark link-offset-2 link-underline-opacity-25
@@ -28,14 +29,24 @@
             </tr>
         </table>
     </div>
-    {% for object in articles_model %}
+</div>
+<div class="row mt-3">
+    {% for object in article_object_list %}
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
             <div class="card-header">
                 <h5 class="my-0 font-weight-normal">{{ object.title|title }}</h5>
             </div>
             <div class="card-body">
-                <p class="card-text">{{ object.body|slice:":100" }}</p>
+                {% if object.photo %}
+                <img class="card-img-top"
+                     src="{{object.photo|mymedia}}"
+                     alt="Card image cap">
+                {% else %}
+                <strong><div class="md-3">Фото пока не добавлено :(</div></strong><br>
+                {% endif %}
+                <p class="card-text">{{ object.body|slice:":100"}}...</p>
+                <a href="{% url 'blog:view' object.pk %}" class="btn btn-sm btn-outline-secondary">К статье</a>
             </div>
         </div>
     </div>

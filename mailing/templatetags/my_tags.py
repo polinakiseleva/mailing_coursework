@@ -12,7 +12,7 @@ def mymedia(value):
 
 
 @register.simple_tag()
-def my_path(value):
+def mymedia(value):
     if value:
         return f"/media/{value}"
     return "#"

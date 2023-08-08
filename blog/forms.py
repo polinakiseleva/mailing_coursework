@@ -7,4 +7,4 @@ from mailing.forms import StyleFormMixin
 class BlogPostForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Blog
-        fields = '__all__'
+        fields = ['title', 'body', 'photo', 'creation_date']

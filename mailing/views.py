@@ -201,7 +201,6 @@ def index(request):
     active_mail = Mail.objects.filter(status='running').count()
     all_client = Client.objects.all().count()
     articles_model = Blog.objects.all().order_by('?')[:3]
-
     context = {
         'all_mail': all_mail,
         'all_client': all_client,

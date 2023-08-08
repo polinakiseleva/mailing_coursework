@@ -1,4 +1,5 @@
 {% extends 'mailing/base.html' %}
+{% load my_tags %}
 
 {% block content %}
 <div class="col-12">
@@ -15,10 +16,19 @@
                         {{ object.body }}
                     </p>
                 </div>
+                {% if object.photo %}
+                <img class="card-img-top"
+                     src="{{object.photo|mymedia}}"
+                     alt="Card image cap">
+                {% else %}
+                <div class="ml-4">Фото пока не добавлено :(</div><br>
+                {% endif %}
                 <div class="card-footer">
-                    Просмотры: {{ object.view_count }}
-                    <a href="{% url 'blog:list' %}" class="btn btn-outline-primary mt-3">К статьям</a>
+                    Просмотры: {{ object.view_count }} <br>
+                    Дата публикации: {% if object.creation_date %} {{object.creation_date}} {% else %} не указана
+                    {% endif %}
                 </div>
+                <a href="{% url 'blog:list' %}" class="btn btn-outline-primary mt-3">К статьям</a>
             </div>
         </div>
     </div>
