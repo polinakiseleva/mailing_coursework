@@ -1,0 +1,5 @@
+Здравствуйте!
+Ваш аккаунт: {{ email }}.
+
+Пожалуйста, перейдите по ссылке, чтобы закончить регистрацию:
+{{ protocol }}://{{ domain }}{% url "users:password_reset_confirm" uidb64=uid token=token %}
