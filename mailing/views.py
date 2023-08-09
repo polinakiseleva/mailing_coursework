@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render
@@ -15,9 +16,7 @@ class ClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy('mailing:client_list')
-    permission_required = 'mailing.client_create'
-
-    # extra_context = {'title': 'Создание клиента', }
+    permission_required = 'mailing.add_client'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -36,7 +35,7 @@ class ClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Client
     form_class = ClientForm
-    permission_required = 'mailing.client_update'
+    permission_required = 'mailing.change_client'
     success_url = reverse_lazy('mailing:client_list')
 
     def get_context_data(self, **kwargs):
@@ -49,7 +48,7 @@ class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Client
     template_name = 'mailing/client_list.html'
-    permission_required = 'mailing.client_view'
+    permission_required = 'mailing.view_client'
 
     # extra_context = {'title': 'Список клиентов', }
 
@@ -62,7 +61,7 @@ class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Client
-    permission_required = 'mailing.client_view'
+    permission_required = 'mailing.view_client'
     success_url = reverse_lazy('mailing:client_list')
 
     def get_context_data(self, **kwargs):
@@ -74,7 +73,7 @@ class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Client
-    permission_required = 'mailing.client_delete'
+    permission_required = 'mailing.delete_client'
     template_name = 'mailing/client_confirm_delete.html'
     success_url = reverse_lazy('mailing:client_list')
 
@@ -90,7 +89,7 @@ class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 class MailCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Mail
     form_class = MailForm
-    permission_required = 'mailing.mail_create'
+    permission_required = 'mailing.add_mail'
     success_url = reverse_lazy('mailing:mail_list')
 
     def form_valid(self, form):
@@ -102,7 +101,7 @@ class MailCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class MailListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Mail
-    permission_required = 'mailing.mail_view'
+    permission_required = 'mailing.view_mail'
 
     extra_context = {
         'title': 'Список рассылок'
@@ -111,7 +110,7 @@ class MailListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class MailDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Mail
-    permission_required = 'mailing.mail_view'
+    permission_required = 'mailing.view_mail'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -123,7 +122,7 @@ class MailDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 class MailUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Mail
     form_class = MailForm
-    permission_required = 'mailing.mail_update'
+    permission_required = 'mailing.change_mail'
     success_url = reverse_lazy('main:mail_list')
     template_name = 'mailing/mail_form.html'
 
@@ -137,7 +136,7 @@ class MailUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 class MailDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Mail
     success_url = reverse_lazy('mailing:mail_list')
-    permission_required = 'mailing.mail_delete'
+    permission_required = 'mailing.delete_mail'
     template_name = 'mailing/mail_confirm_delete.html'
 
     def get_context_data(self, *args, **kwargs):
@@ -150,14 +149,14 @@ class MailDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 class MessageCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Message
     form_class = MessageForm
-    permission_required = 'mailing.message_create'
+    permission_required = 'mailing.add_message'
     success_url = reverse_lazy('mailing:message_list')
 
 
 class MessageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Message
     template_name = 'mailing/message_list.html'
-    permission_required = 'mailing.message_create'
+    permission_required = 'mailing.view_message'
     extra_context = {
         'title': 'Список сообщений'
     }
@@ -167,14 +166,14 @@ class MessageUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     model = Message
     form_class = MessageForm
     template_name = 'mailing/message_form.html'
-    permission_required = 'mailing.message_update'
+    permission_required = 'mailing.change_message'
     success_url = reverse_lazy('mailing:message_list')
 
 
 class MessageDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Message
     form_class = MessageForm
-    permission_required = 'mailing.message_view'
+    permission_required = 'mailing.view_message'
     success_url = reverse_lazy('mailing:message_list')
 
     def get_context_data(self, *args, **kwargs):
@@ -188,7 +187,7 @@ class MessageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy('mailing:message_list')
-    permission_required = 'mailing.message_delete'
+    permission_required = 'mailing.delete_message'
     template_name = 'mailing/message_confirm_delete.html'
 
     def get_context_data(self, *args, **kwargs):
@@ -196,6 +195,7 @@ class MessageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
         context_data['title'] = 'Удаление рассылки'
 
 
+@login_required
 def index(request):
     all_mail = Mail.objects.all().count()
     active_mail = Mail.objects.filter(status='running').count()
@@ -211,6 +211,7 @@ def index(request):
     return render(request, 'mailing/home.html', context)
 
 
+@login_required
 def contact_inf(request):
     context = {
         'title': 'Контакты',
