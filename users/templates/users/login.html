@@ -11,6 +11,9 @@
                         Аутентификация
                     </h3>
                     <p>Пожалуйста, введите данные для входа</p>
+                    <p><a href="{% url 'users:register' %}"
+                          class="link-dark link-offset-2 link-underline-opacity-25
+                          link-underline-opacity-100-hover">Нет аккаунта? Зарегистрируйтесь!</a></p>
                 </div>
                 <div class="card-body">
                     {% csrf_token %}
