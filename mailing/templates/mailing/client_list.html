@@ -2,7 +2,9 @@
 
 {% block content %}
 <div class="col-12 mb-5">
+    {% if perms.mailing.add_client %}
     <a href="{% url 'mailing:client_create' %}" class="btn btn-outline-primary mb-5">Создать клиента</a>
+    {% endif %}
     <div class="row">
         {% for object in object_list %}
         <div class="col-md-6">
@@ -16,15 +18,15 @@
                 </div>
                 <div class="card-footer">
                     <div class="btn-group">
-                        {% if perms.mailing.client_view %}
+                        {% if perms.mailing.view_client %}
                         <a href="{% url 'mailing:client_view' object.pk %}"
                            class="btn btn-sm btn-outline-secondary">Просмотреть</a>
                         {% endif %}
-                        {% if perms.mailing.client_update %}
+                        {% if perms.mailing.change_client %}
                         <a href="{% url 'mailing:client_update' object.pk %}" type="button"
                            class="btn btn-sm btn-outline-secondary">Редактировать</a>
                         {% endif %}
-                        {% if perms.mailing.client_delete %}
+                        {% if perms.mailing.delete_client %}
                         <a href="{% url 'mailing:client_delete' object.pk %}" type="button"
                            class="btn btn-sm btn-outline-danger">Удалить</a>
                         {% endif %}

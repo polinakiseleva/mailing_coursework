@@ -133,6 +133,8 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/users/'
 
+SITE_ADRES = "127.0.0.1:8000"
+
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'polinakiseleva4@gmail.com'
 EMAIL_HOST_PASSWORD = 'msuceohxwnmpnqha'

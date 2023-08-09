@@ -2,6 +2,7 @@
 
 {% load my_tags %}
 {% block content %}
+{% if perms.mailing.view_client %}
 <div class="row">
     <div class="col-sm-6">
         <table class="table">
@@ -30,6 +31,7 @@
         </table>
     </div>
 </div>
+{% endif %}
 <div class="row mt-3">
     {% for object in article_object_list %}
     <div class="col-md-4">
@@ -43,7 +45,9 @@
                      src="{{object.photo|mymedia}}"
                      alt="Card image cap">
                 {% else %}
-                <strong><div class="md-3">Фото пока не добавлено :(</div></strong><br>
+                <strong>
+                    <div class="md-3">Фото пока не добавлено :(</div>
+                </strong><br>
                 {% endif %}
                 <p class="card-text">{{ object.body|slice:":100"}}...</p>
                 <a href="{% url 'blog:view' object.pk %}" class="btn btn-sm btn-outline-secondary">К статье</a>
