@@ -1,0 +1,82 @@
+[
+  {
+    "model": "mailing.client",
+    "pk": 2,
+    "fields": {
+      "email": "coursework@mail.com",
+      "full_name": "coursework",
+      "comment": "coursework coursework coursework"
+    }
+  },
+  {
+    "model": "mailing.client",
+    "pk": 3,
+    "fields": {
+      "email": "polinakis@gmail.ru",
+      "full_name": "polina kiseleva",
+      "comment": "редактирование клиента с ФИО \"polina kiseleva\""
+    }
+  },
+  {
+    "model": "mailing.client",
+    "pk": 4,
+    "fields": {
+      "email": "project@mail.ru",
+      "full_name": "project",
+      "comment": "Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information."
+    }
+  },
+  {
+    "model": "mailing.client",
+    "pk": 5,
+    "fields": {
+      "email": "test@mail.com",
+      "full_name": "test",
+      "comment": "test test test"
+    }
+  },
+  {
+    "model": "mailing.mail",
+    "pk": 1,
+    "fields": {
+      "subject": "test mail",
+      "body": "test mail test mail test mail test mail test mail",
+      "periodicity": "monthly",
+      "status": "running",
+      "client": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "mailing.mail",
+    "pk": 3,
+    "fields": {
+      "subject": "рассылка",
+      "body": "Рассылка — это отправка одного сообщения большому количеству получателей по заранее составленному списку адресатов. Рассылка — разновидность прямого маркетинга. Это значит, что она направлена на личные коммуникации с клиентами, чтобы построить с ними взаимоотношения и получить прибыль в долгосрочной перспективе.",
+      "periodicity": "monthly",
+      "status": "running",
+      "client": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "mailing.message",
+    "pk": 10,
+    "fields": {
+      "theme": "тест письма",
+      "body": "тест тест",
+      "mail_settings": 1
+    }
+  },
+  {
+    "model": "mailing.message",
+    "pk": 11,
+    "fields": {
+      "theme": "ПИСЬМО",
+      "body": "ТЕЛО ПИСЬМА",
+      "mail_settings": 3
+    }
+  }
+]

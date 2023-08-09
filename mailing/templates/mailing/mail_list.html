@@ -2,8 +2,12 @@
 
 {% block content %}
 <div class="col-12 mb-5">
-    <a href="{% url 'mailing:mail_create' %}" class="btn btn-primary mb-5">Создать рассылку</a>
-    <a href="{% url 'mailing:client_create' %}" class="btn btn-primary mb-5">Создать клиента</a>
+    {% if perms.mailing.add_mail %}
+    <a href="{% url 'mailing:mail_create' %}" class="btn btn-outline-primary mb-5">Создать рассылку</a>
+    {% endif %}
+    {% if perms.mailing.add_client %}
+    <a href="{% url 'mailing:client_create' %}" class="btn btn-outline-primary mb-5">Создать клиента</a>
+    {% endif %}
     <div class="row">
         {% for object in object_list %}
         <div class="col-md-6">
@@ -16,15 +20,15 @@
                 </div>
                 <div class="card-footer">
                     <div class="btn-group">
-                        {% if perms.mailing.mail_view %}
+                        {% if perms.mailing.view_mail %}
                         <a href="{% url 'mailing:mail_view' object.pk %}"
                            class="btn btn-sm btn-outline-secondary">Просмотреть</a>
                         {% endif %}
-                        {% if perms.mailing.mail_update %}
+                        {% if perms.mailing.change_mail %}
                         <a href="{% url 'mailing:mail_update' object.pk %}" type="button"
                            class="btn btn-sm btn-outline-secondary">Редактировать</a>
                         {% endif %}
-                        {% if perms.mailing.mail_delete %}
+                        {% if perms.mailing.delete_mail %}
                         <a href="{% url 'mailing:mail_delete' object.pk %}" type="button"
                            class="btn btn-sm btn-outline-danger">Удалить</a>
                         {% endif %}

@@ -39,7 +39,7 @@ def mail_send(message_item: Mail):
 
     # Отправляем письмо каждому клиенту
     for email in client_emails:
-        message = Message.objects.create(mail=message_item)
+        message = Message.objects.create(mail_settings=message_item)
         try:
             send_mail(
                 message_item.subject,  # Тема письма

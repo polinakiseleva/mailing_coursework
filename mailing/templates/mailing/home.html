@@ -2,48 +2,58 @@
 
 {% load my_tags %}
 {% block content %}
-<div class="col-4">
-    <div class="card">
-        <div class="card-body ">
-            <!--           <p> Всего рассылок: {{all_mail}} </p>-->
-            <p>Всего рассылок: ОБЩЕЕ КОЛИЧЕСТВО РАССЫЛОК (***)</p>
-        </div>
-    </div>
-</div>
-<div class="col-4">
-    <div class="card">
-        <div class="card-body ">
-            <!--            <p> Активных рассылок: {{active_mail}}</p>-->
-            <p> Активных рассылок: КОЛИЧЕСТВО АКТИВНЫХ РАССЫЛОК (***)</p>
-        </div>
-    </div>
-</div>
-<div class="col-4">
-    <div class="card">
-        <div class="card-body ">
-            <!--            <p> Всего клиентов: {{all_clients}}</p>-->
-            <p> Всего клиентов: ОБЩЕЕ КОЛИЧЕСТВО КЛИЕНТОВ (***)</p>
-        </div>
-    </div>
-</div>
+{% if perms.mailing.view_client %}
 <div class="row">
-    {% for object in article_object_list%}
-    <div class="col-4">
-        <div class="card mt-4 box-shadow">
+    <div class="col-sm-6">
+        <table class="table">
+            <h4 class="ml-3">Статистика</h4>
+            <tr>
+                <td><p><a href="{% url 'mailing:mail_list' %}"
+                          class="link-dark link-offset-2 link-underline-opacity-25
+                          link-underline-opacity-100-hover">Количество рассылок</a></p>
+                </td>
+                <td>{{all_mail}}</td>
+            </tr>
+            <tr>
+                <td><p><a href="{% url 'mailing:mail_list' %}"
+                          class="link-dark link-offset-2 link-underline-opacity-25
+                          link-underline-opacity-100-hover">Количество активных рассылок</a></p>
+                </td>
+                <td>{{active_mail}}</td>
+            </tr>
+            <tr>
+                <td><p><a href="{% url 'mailing:client_list' %}"
+                          class="link-dark link-offset-2 link-underline-opacity-25
+                          link-underline-opacity-100-hover">Количество клиентов для рассылок</a></p>
+                </td>
+                <td>{{all_client}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endif %}
+<div class="row mt-3">
+    {% for object in article_object_list %}
+    <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
             <div class="card-header">
-                <img src="{{object.image|my_path}}" class="card-img-top" alt="{{object.image|my_path}}">
-                <h3 class="card-title">{{ object.title }}</h3>
+                <h5 class="my-0 font-weight-normal">{{ object.title|title }}</h5>
             </div>
             <div class="card-body">
-                <div class="card-text">{{ object.content|truncatechars:100 }}</div>
-            </div>
-            <div class="card-footer">
-                <a href="{% url 'blog:view_article' object.pk %}" class="btn btn-outline-primary">Просмотреть</a>
+                {% if object.photo %}
+                <img class="card-img-top"
+                     src="{{object.photo|mymedia}}"
+                     alt="Card image cap">
+                {% else %}
+                <strong>
+                    <div class="md-3">Фото пока не добавлено :(</div>
+                </strong><br>
+                {% endif %}
+                <p class="card-text">{{ object.body|slice:":100"}}...</p>
+                <a href="{% url 'blog:view' object.pk %}" class="btn btn-sm btn-outline-secondary">К статье</a>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
-
-
 {% endblock %}

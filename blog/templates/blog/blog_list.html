@@ -1,31 +1,40 @@
-{% extends 'catalog/base.html' %}
+{% extends 'mailing/base.html' %}
 
 {% block content %}
 <div class="col-12 mb-5">
+    {% if perms.blog.add_blog %}
     <a class="btn btn-outline-primary" href="{% url 'blog:create' %}">Добавить статью</a>
+    {% endif %}
 </div>
 {% for object in object_list %}
 <div class="col-md-6">
     <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h5 class="card-title">{{ object.title|title }}</h5>
+        </div>
         <div class="card-body">
-            <p class="card-text">
-                {{ object.title|title }}
-            </p>
+            <p class="card-text">{{ object.body|slice:":100"}}...</p>
             <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                     <a href="{% url 'blog:view' object.pk %}"
                        class="btn btn-sm btn-outline-secondary">View</a>
+                    {% if perms.blog.change_blog %}
                     <a href="{% url 'blog:edit' object.pk %}" type="button"
                        class="btn btn-sm btn-outline-secondary">Edit</a>
+                    {% endif %}
+                    {% if perms.blog.delete_blog %}
                     <a href="{% url 'blog:delete' object.pk %}" type="button"
                        class="btn btn-sm btn-outline-danger">Delete</a>
+                    {% endif %}
                 </div>
+                {% if perms.blog.delete_blog %}
                 {% if object.is_published %}
                 <a class="btn btn-outline-danger"
                    href="{% url 'blog:toggle_activity' object.pk %}">Снять с публикации</a>
                 {% else %}
                 <a class="btn btn-outline-primary"
                    href="{% url 'blog:toggle_activity' object.pk %}">Опубликовать</a>
+                {% endif %}
                 {% endif %}
             </div>
         </div>

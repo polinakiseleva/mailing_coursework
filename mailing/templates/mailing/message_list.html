@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="col-12">
-    <a href="{% url 'mailing:message_create' %}" class="btn btn-secondary m-2">Добавить сообщение</a>
+    <a href="{% url 'mailing:message_create' %}" class="btn btn-outline-primary mb-5">Добавить сообщение</a>
 </div>
 <div class="row">
     {% for object in object_list %}
@@ -15,26 +15,26 @@
                 </div>
             </div>
             <div class="card-footer">
-                    <div class="btn-group">
-                        {% if perms.mailing.message_view %}
-                        <a href="{% url 'mailing:message_view' object.pk %}"
-                           class="btn btn-sm btn-outline-secondary">Просмотреть</a>
-                        {% endif %}
-                        {% if perms.mailing.message_update %}
-                        <a href="{% url 'mailing:message_update' object.pk %}" type="button"
-                           class="btn btn-sm btn-outline-secondary">Редактировать</a>
-                        {% endif %}
-                        {% if perms.mailing.message_delete %}
-                        <a href="{% url 'mailing:message_delete' object.pk %}" type="button"
-                           class="btn btn-sm btn-outline-danger">Удалить</a>
-                        {% endif %}
-                    </div>
+                <div class="btn-group">
+                    {% if perms.mailing.message_view %}
+                    <a href="{% url 'mailing:message_view' object.pk %}"
+                       class="btn btn-sm btn-outline-secondary">Просмотреть</a>
+                    {% endif %}
+                    {% if perms.mailing.message_update %}
+                    <a href="{% url 'mailing:message_update' object.pk %}" type="button"
+                       class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                    {% endif %}
+                    {% if perms.mailing.message_delete %}
+                    <a href="{% url 'mailing:message_delete' object.pk %}" type="button"
+                       class="btn btn-sm btn-outline-danger">Удалить</a>
+                    {% endif %}
                 </div>
+            </div>
         </div>
     </div>
     {% endfor %}
 </div>
 <div class="col-12">
-    <a href="{% url 'mailing:home' %}" class="btn btn-secondary m-2"><< Назад</a>
+    <a href="{% url 'mailing:home' %}" class="btn btn-outline-primary mt-3">На главную</a>
 </div>
 {% endblock %}

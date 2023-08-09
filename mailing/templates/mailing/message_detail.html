@@ -2,32 +2,32 @@
 
 {% block content %}
 
-  <div class="col-12">
+<div class="col-12">
     <div class="row">
-      <div class="col-8">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title">Просмотр сообщения "{{object.theme|title}}"</h5>
-          </div>
-          <div class="card-body">
-            <table class="table">
-              <tr>
-                <td>Сообщение из рассылки:</td>
-                <td>{{object.mail_settings}}</td>
-              </tr>
-              <tr>
-                <td>Тема сообщения:</td>
-                <td>{{object.theme}}</td>
-              </tr>
-              <tr>
-                <td>Содержание сообщения:</td>
-                <td>{{object.body}}</td>
-              </tr>
-            </table>
-          </div>
+        <div class="col-9">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Просмотр сообщения "{{object.theme|title}}"</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td>Сообщение из рассылки:</td>
+                            <td>{{object.mail_settings}}</td>
+                        </tr>
+                        <tr>
+                            <td>Тема сообщения:</td>
+                            <td>{{object.theme}}</td>
+                        </tr>
+                        <tr>
+                            <td>Содержание сообщения:</td>
+                            <td>{{object.body}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-  </div>
-        <a href="{% url 'mailing:message_list' %}" class="btn btn-outline-primary mt-3">Назад к списку сообщений</a>
+    </div>
+    <a href="{% url 'mailing:message_list' %}" class="btn btn-outline-primary mt-3">Назад к списку сообщений</a>
 </div>
 {% endblock %}

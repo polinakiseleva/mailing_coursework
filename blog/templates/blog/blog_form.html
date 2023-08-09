@@ -1,11 +1,12 @@
-{% extends 'catalog/base.html' %}
+{% extends 'mailing/base.html' %}
+
 {% block content %}
 <div class="col-12">
     <div class="row">
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button type="submit" class="btn btn-success">
@@ -16,6 +17,10 @@
                             {% endif %}
                         </button>
                     </form>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'blog:list' %}" class="btn btn-outline-primary mt-3">К статьям
+                        </a>
                 </div>
             </div>
         </div>
